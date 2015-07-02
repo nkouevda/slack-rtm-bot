@@ -65,5 +65,5 @@ class Plugin(object):
   def help(self):
     raise NotImplementedError
 
-  def handle(self, event, client):
+  def handle(self, event):
     raise NotImplementedError
