@@ -15,3 +15,7 @@
 ## Usage
 
     python bot/bot.py
+
+## License
+
+Licensed under the [MIT License](http://www.opensource.org/licenses/MIT).
