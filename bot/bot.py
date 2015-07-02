@@ -30,14 +30,14 @@ def run_bot(client):
         logging.info('response: %s' % response)
         client.rtm_send_message(event['channel'], response)
 
-    time.sleep(settings.LOOP_INTERVAL)
+    time.sleep(settings.READ_INTERVAL_SECONDS)
 
 def main():
-  logging.basicConfig(filename=settings.LOGFILE,
-                      format=settings.LOGFORMAT,
-                      level=settings.LOGLEVEL)
+  logging.basicConfig(filename=settings.LOG_FILE,
+                      format=settings.LOG_FORMAT,
+                      level=settings.LOG_LEVEL)
 
-  client = SlackClient(settings.TOKEN)
+  client = SlackClient(settings.API_TOKEN)
   logging.info('rtm_connect')
   if not client.rtm_connect():
     logging.critical('failed to connect')

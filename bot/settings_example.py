@@ -2,8 +2,8 @@ import logging
 
 API_TOKEN = None
 
-LOGFILE = None
-LOGFORMAT = '%(asctime)s: %(levelname)s: %(message)s'
-LOGLEVEL = logging.INFO
+LOG_FILE = None
+LOG_FORMAT = '%(asctime)s: %(levelname)s: %(message)s'
+LOG_LEVEL = logging.INFO
 
-LOOP_INTERVAL = 1
+READ_INTERVAL_SECONDS = 1.0
