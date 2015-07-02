@@ -1,0 +1,6 @@
+# Python
+*.py[co]
+__pycache__
+
+# Settings
+bot/settings.py
