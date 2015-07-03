@@ -1,6 +1,6 @@
-from plugins.base import message_handler, Plugin, plugins
+from handlers.base import Handler, handlers, message_handler
 
-class Help(Plugin):
+class HelpHandler(Handler):
 
   @property
   def help(self):
@@ -8,7 +8,7 @@ class Help(Plugin):
 
   @message_handler(r'^!help\b')
   def handle(self, event, query):
-    parts = [plugin.help for plugin in plugins]
+    parts = [handler.help for handler in handlers]
     if query:
       for part in parts:
         trigger = part.split(None, 1)[0]

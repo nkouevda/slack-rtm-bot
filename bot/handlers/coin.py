@@ -2,9 +2,9 @@ from collections import Counter
 import logging
 import random
 
-from plugins.base import message_handler, Plugin
+from handlers.base import Handler, message_handler
 
-class Coin(Plugin):
+class CoinHandler(Handler):
 
   @property
   def help(self):

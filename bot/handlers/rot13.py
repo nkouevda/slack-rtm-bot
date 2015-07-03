@@ -1,6 +1,6 @@
-from plugins.base import message_handler, Plugin
+from handlers.base import Handler, message_handler
 
-class Rot13(Plugin):
+class Rot13Handler(Handler):
 
   @property
   def help(self):

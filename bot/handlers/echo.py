@@ -1,6 +1,6 @@
-from plugins.base import message_handler, Plugin
+from handlers.base import Handler, message_handler
 
-class Echo(Plugin):
+class EchoHandler(Handler):
 
   @property
   def help(self):

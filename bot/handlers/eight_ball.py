@@ -1,8 +1,8 @@
 import random
 
-from plugins.base import message_handler, Plugin
+from handlers.base import Handler, message_handler
 
-class EightBall(Plugin):
+class EightBallHandler(Handler):
 
   @property
   def help(self):

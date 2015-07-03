@@ -7,20 +7,20 @@ import re
 
 import settings
 
-_plugin_classes = set()
-plugins = set()
+_handler_classes = set()
+handlers = set()
 
-def init_plugins(client):
-  plugins_dir = os.path.dirname(__file__)
-  for filename in fnmatch.filter(os.listdir(plugins_dir), '[!_]*.py'):
+def init_handlers(client):
+  handlers_dir = os.path.dirname(__file__)
+  for filename in fnmatch.filter(os.listdir(handlers_dir), '[!_]*.py'):
     module = filename[:-3]
     try:
-      importlib.import_module('plugins.%s' % module)
-      logging.info('loaded plugin module: %s' % module)
+      importlib.import_module('handlers.%s' % module)
+      logging.info('loaded handler module: %s' % module)
     except Exception:
-      logging.exception('failed to load plugin module: %s' % module)
+      logging.exception('failed to load handler module: %s' % module)
 
-  plugins.update(cls(settings, client) for cls in _plugin_classes)
+  handlers.update(cls(settings, client) for cls in _handler_classes)
 
 def message_handler(regex, flags=re.IGNORECASE):
   """Decorator factory for message handlers.
@@ -46,16 +46,16 @@ def message_handler(regex, flags=re.IGNORECASE):
 
   return decorator
 
-class PluginRegistry(type):
+class HandlerRegistry(type):
 
   def __init__(cls, name, bases, namespace):
-    super(PluginRegistry, cls).__init__(name, bases, namespace)
-    _plugin_classes.add(cls)
-    _plugin_classes.difference_update(bases)
+    super(HandlerRegistry, cls).__init__(name, bases, namespace)
+    _handler_classes.add(cls)
+    _handler_classes.difference_update(bases)
 
-class Plugin(object):
+class Handler(object):
 
-  __metaclass__ = PluginRegistry
+  __metaclass__ = HandlerRegistry
 
   def __init__(self, settings, client):
     self.settings = settings

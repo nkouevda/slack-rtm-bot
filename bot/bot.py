@@ -3,15 +3,15 @@ import time
 
 from slackclient import SlackClient
 
-from plugins.base import init_plugins, plugins
+from handlers.base import handlers, init_handlers
 import settings
 
 def get_responses(event):
-  for plugin in plugins:
+  for handler in handlers:
     try:
-      yield plugin.handle(event)
+      yield handler.handle(event)
     except Exception:
-      logging.exception('plugin failed to handle event: %s' % plugin)
+      logging.exception('handler failed to handle event: %s' % handler)
 
 def run_bot(client):
   while True:
@@ -43,7 +43,7 @@ def main():
     logging.critical('failed to connect')
     return
 
-  init_plugins(client)
+  init_handlers(client)
   run_bot(client)
 
 if __name__ == '__main__':
