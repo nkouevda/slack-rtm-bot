@@ -2,16 +2,14 @@ from collections import Counter
 import logging
 import random
 
-from handlers.base import Handler, message_handler
+from handlers.base import MessageHandler
 
-class CoinHandler(Handler):
+class CoinHandler(MessageHandler):
 
-  @property
-  def help(self):
-    return '!coin [<number>] - flip <number> coins; default 1'
+  TRIGGERS = ['coin', 'flip']
+  HELP = 'flip the given number of coins; default 1'
 
-  @message_handler(r'^!coin\b')
-  def handle(self, event, query):
+  def handle_message(self, event, query):
     try:
       times = int(query or 1)
     except Exception:

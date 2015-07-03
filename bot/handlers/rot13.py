@@ -1,11 +1,9 @@
-from handlers.base import Handler, message_handler
+from handlers.base import MessageHandler
 
-class Rot13Handler(Handler):
+class Rot13Handler(MessageHandler):
 
-  @property
-  def help(self):
-    return '!rot13 <query> - ROT13 applied to <query>'
+  TRIGGERS = ['rot13', 'rot']
+  HELP = 'apply ROT13 to the given text'
 
-  @message_handler(r'^!rot13\b')
-  def handle(self, event, query):
+  def handle_message(self, event, query):
     return query.encode('rot13')

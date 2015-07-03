@@ -2,16 +2,14 @@ from collections import Counter
 import logging
 import random
 
-from handlers.base import Handler, message_handler
+from handlers.base import MessageHandler
 
-class DiceHandler(Handler):
+class DiceHandler(MessageHandler):
 
-  @property
-  def help(self):
-    return '!dice [<number>] - roll <number> dice; default 1'
+  TRIGGERS = ['dice', 'roll']
+  HELP = 'roll the given number of dice; default 1'
 
-  @message_handler(r'^!dice\b')
-  def handle(self, event, query):
+  def handle_message(self, event, query):
     try:
       times = int(query or 1)
     except Exception:

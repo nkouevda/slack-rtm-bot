@@ -1,11 +1,9 @@
-from handlers.base import Handler, message_handler
+from handlers.base import MessageHandler
 
-class PingHandler(Handler):
+class PingHandler(MessageHandler):
 
-  @property
-  def help(self):
-    return '!ping - pong'
+  TRIGGERS = ['ping']
+  HELP = 'pong'
 
-  @message_handler(r'^!ping\b')
-  def handle(self, event, query):
+  def handle_message(self, event, query):
     return 'pong'

@@ -1,11 +1,9 @@
-from handlers.base import Handler, message_handler
+from handlers.base import MessageHandler
 
-class EchoHandler(Handler):
+class EchoHandler(MessageHandler):
 
-  @property
-  def help(self):
-    return '!echo <query> - <query>'
+  TRIGGERS = ['echo']
+  HELP = 'echo the given text'
 
-  @message_handler(r'^!echo\b')
-  def handle(self, event, query):
+  def handle_message(self, event, query):
     return query

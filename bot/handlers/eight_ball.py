@@ -1,15 +1,13 @@
 import random
 
-from handlers.base import Handler, message_handler
+from handlers.base import MessageHandler
 
-class EightBallHandler(Handler):
+class EightBallHandler(MessageHandler):
 
-  @property
-  def help(self):
-    return '!8ball - random fortune'
+  TRIGGERS = ['8ball', 'eight_ball']
+  HELP = 'random fortune'
 
-  @message_handler(r'^!8ball\b')
-  def handle(self, event, query):
+  def handle_message(self, event, query):
     return random.choice((
         'It is certain',
         'It is decidedly so',

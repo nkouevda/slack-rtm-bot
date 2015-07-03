@@ -1,5 +1,4 @@
 import fnmatch
-import functools
 import importlib
 import logging
 import os
@@ -22,30 +21,6 @@ def init_handlers(client):
 
   handlers.update(cls(settings, client) for cls in _handler_classes)
 
-def message_handler(regex, flags=re.IGNORECASE):
-  """Decorator factory for message handlers.
-
-  The wrapped handler is called with each normal (i.e. no subtype) message event
-  for which the message text matches the given regex. In addition to the event,
-  the query (the message text with the first regex match removed, and
-  surrounding whitespace stripped) is passed to the handler.
-
-  An empty string regex can be used to receive all messages.
-  """
-  def decorator(func):
-    @functools.wraps(func)
-    def wrapper(self, event):
-      if event['type'] == 'message' and 'subtype' not in event:
-        text = event['text']
-        match = re.search(regex, text, flags=flags)
-        if match:
-          query = (text[:match.start()] + text[match.end():]).strip()
-          return func(self, event, query)
-
-    return wrapper
-
-  return decorator
-
 class HandlerRegistry(type):
 
   def __init__(cls, name, bases, namespace):
@@ -61,9 +36,28 @@ class Handler(object):
     self.settings = settings
     self.client = client
 
-  @property
-  def help(self):
+  def handle(self, event):
     raise NotImplementedError
 
+class MessageHandler(Handler):
+
+  TRIGGERS = []
+  TRIGGER_FLAGS = re.IGNORECASE
+  HELP = None
+
+  def __init__(self, *args, **kwargs):
+    super(MessageHandler, self).__init__(*args, **kwargs)
+    self.TRIGGER_RE = re.compile(
+        r'^!(?:%s)(?!\S)' % '|'.join(self.TRIGGERS), flags=self.TRIGGER_FLAGS)
+
   def handle(self, event):
+    if event['type'] == 'message' and 'subtype' not in event:
+      text = event['text']
+      for trigger in self.TRIGGERS:
+        match = self.TRIGGER_RE.search(text)
+        if match:
+          query = (text[:match.start()] + text[match.end():]).strip()
+          return self.handle_message(event, query)
+
+  def handle_message(self, event, query):
     raise NotImplementedError
