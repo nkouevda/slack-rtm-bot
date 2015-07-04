@@ -9,18 +9,6 @@ import settings
 _handler_classes = set()
 handlers = set()
 
-def init_handlers(client):
-  handlers_dir = os.path.dirname(__file__)
-  for filename in fnmatch.filter(os.listdir(handlers_dir), '[!_]*.py'):
-    module = filename[:-3]
-    try:
-      importlib.import_module('handlers.%s' % module)
-      logging.info('loaded handler module: %s' % module)
-    except Exception:
-      logging.exception('failed to load handler module: %s' % module)
-
-  handlers.update(cls(settings, client) for cls in _handler_classes)
-
 class HandlerRegistry(type):
 
   def __init__(cls, name, bases, namespace):
@@ -57,3 +45,28 @@ class MessageHandler(Handler):
 
   def handle_message(self, event, query):
     raise NotImplementedError
+
+def init_handlers(client):
+  handlers_dir = os.path.dirname(__file__)
+  for filename in fnmatch.filter(os.listdir(handlers_dir), '[!_]*.py'):
+    module = filename[:-3]
+    try:
+      importlib.import_module('handlers.%s' % module)
+      logging.info('loaded handler module: %s' % module)
+    except Exception:
+      logging.exception('failed to load handler module: %s' % module)
+
+  for handler_class in _handler_classes:
+    try:
+      handler = handler_class(settings, client)
+      handlers.add(handler)
+      logging.info('initialized handler: %s' % handler)
+    except Exception:
+      logging.exception('failed to initialize handler: %s' % handler_class)
+      continue
+
+    if isinstance(handler, MessageHandler):
+      if not handler.TRIGGERS:
+        logging.warning('message handler with no triggers: %s' % handler)
+      if not handler.HELP:
+        logging.warning('message handler with no help: %s' % handler)
