@@ -41,13 +41,13 @@ class MessageHandler(Handler):
       pattern = r'^%s(?!\S)' % pattern
     elif self.TRIGGER_ANCHOR == '$':
       pattern = r'(?<!\S)%s$' % pattern
-    self.TEXT_RE = re.compile(pattern, flags=re.IGNORECASE)
+    self.TRIGGER_RE = re.compile(pattern, flags=re.IGNORECASE)
 
   def handle(self, event):
     if event['type'] == 'message' and 'subtype' not in event:
-      match = self.TEXT_RE.search(event['text'])
+      match = self.TRIGGER_RE.search(event['text'])
       if match:
-        query = self.TEXT_RE.sub('', event['text'], count=1)
+        query = self.TRIGGER_RE.sub('', event['text'], count=1).strip()
         return self.handle_message(event, query)
 
   def handle_message(self, event, query):
