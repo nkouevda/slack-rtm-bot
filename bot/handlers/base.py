@@ -29,19 +29,26 @@ class Handler(object):
 
 class MessageHandler(Handler):
 
+  TRIGGER_ANCHOR = '^'
+  TRIGGER_PREFIX = '!'
   TRIGGERS = []
   HELP = None
 
   def __init__(self, *args, **kwargs):
     super(MessageHandler, self).__init__(*args, **kwargs)
-    self.TEXT_RE = re.compile(
-        r'^!(?:%s)(?:\s+(.*))?$' % '|'.join(self.TRIGGERS), flags=re.IGNORECASE)
+    pattern = r'%s(?:%s)' % (self.TRIGGER_PREFIX, '|'.join(self.TRIGGERS))
+    if self.TRIGGER_ANCHOR == '^':
+      pattern = r'^%s(?!\S)' % pattern
+    elif self.TRIGGER_ANCHOR == '$':
+      pattern = r'(?<!\S)%s$' % pattern
+    self.TEXT_RE = re.compile(pattern, flags=re.IGNORECASE)
 
   def handle(self, event):
     if event['type'] == 'message' and 'subtype' not in event:
       match = self.TEXT_RE.search(event['text'])
       if match:
-        return self.handle_message(event, match.groups(default='')[-1])
+        query = self.TEXT_RE.sub('', event['text'], count=1)
+        return self.handle_message(event, query)
 
   def handle_message(self, event, query):
     raise NotImplementedError

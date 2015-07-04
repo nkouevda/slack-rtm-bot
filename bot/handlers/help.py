@@ -1,3 +1,5 @@
+import re
+
 from handlers.base import handlers, MessageHandler
 
 class HelpHandler(MessageHandler):
@@ -11,19 +13,23 @@ class HelpHandler(MessageHandler):
     if self._RESPONSES is None:
       self._init_responses()
 
-    if query.startswith('!'):
-      query = query[1:]
+    parts = []
+    for trigger in re.findall(r'\w+', query.lower()):
+      if trigger in self._RESPONSES:
+        response = self._RESPONSES[trigger]
+        if response not in parts:
+          parts.append(response)
 
-    return self._RESPONSES.get(query, self._RESPONSES[None])
+    return '```%s```' % ('\n'.join(parts) if parts else self._RESPONSES[None])
 
   def _init_responses(self):
     self._RESPONSES = {}
-    parts = set()
-    for handler in handlers:
-      triggers = ', '.join('!%s' % trigger for trigger in handler.TRIGGERS)
-      part = '%s - %s' % (triggers, handler.HELP)
-      parts.add(part)
-      for trigger in handler.TRIGGERS:
-        self._RESPONSES[trigger] = '```%s```' % part
 
-    self._RESPONSES[None] = '```%s```' % '\n'.join(sorted(parts))
+    for handler in handlers:
+      if handler.TRIGGERS and handler.HELP:
+        triggers = ', '.join('%s%s' % (
+            handler.TRIGGER_PREFIX, trigger) for trigger in handler.TRIGGERS)
+        for trigger in handler.TRIGGERS:
+          self._RESPONSES[trigger] = '%s - %s' % (triggers, handler.HELP)
+
+    self._RESPONSES[None] = '\n'.join(sorted(set(self._RESPONSES.values())))
