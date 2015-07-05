@@ -20,7 +20,7 @@ class Handler(object):
 
   __metaclass__ = HandlerRegistry
 
-  def __init__(self, settings, client):
+  def __init__(self, client):
     self.settings = settings
     self.client = client
 
@@ -65,7 +65,7 @@ def init_handlers(client):
 
   for handler_class in _handler_classes:
     try:
-      handler = handler_class(settings, client)
+      handler = handler_class(client)
       handlers.add(handler)
       logging.info('initialized handler: %s' % handler)
     except Exception:
