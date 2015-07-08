@@ -16,6 +16,6 @@ class OwnersHandler(MessageHandler):
     return self._OWNERS.get(event['channel'])
 
   def _init_owners(self):
-    self._OWNERS = {}
-    for channel, owners in self.settings.CHANNEL_OWNERS.items():
-      self._OWNERS[channel] = ' '.join('@%s' % owner for owner in owners)
+    self._OWNERS = {
+        channel: ' '.join('@%s' % owner for owner in sorted(owners))
+        for channel, owners in self.settings.CHANNEL_OWNERS.items()}
