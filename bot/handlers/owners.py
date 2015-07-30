@@ -4,8 +4,8 @@ class OwnersHandler(MessageHandler):
 
   TRIGGER_ANCHOR = None
   TRIGGER_PREFIX = '@'
-  TRIGGERS = ['owners']
-  HELP = 'notify channel owners'
+  TRIGGERS = ['owner', 'owners']
+  HELP = 'notify channel owner(s)'
 
   _OWNERS = None
 
