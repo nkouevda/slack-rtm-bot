@@ -2,7 +2,7 @@ from handlers.base import MessageHandler
 
 class OwnersHandler(MessageHandler):
 
-  TRIGGER_ANCHOR = None
+  TRIGGER_ANCHOR = ''
   TRIGGER_PREFIX = '@'
   TRIGGERS = ['owner', 'owners']
   HELP = 'notify channel owner(s)'

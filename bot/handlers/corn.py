@@ -2,8 +2,8 @@ from handlers.base import MessageHandler
 
 class CornHandler(MessageHandler):
 
-  TRIGGER_ANCHOR = None
-  TRIGGER_PREFIX = None
+  TRIGGER_ANCHOR = ''
+  TRIGGER_PREFIX = ''
   TRIGGERS = ['cron']
 
   def handle_message(self, event, query):
