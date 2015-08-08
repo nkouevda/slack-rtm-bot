@@ -5,6 +5,7 @@ class CornHandler(MessageHandler):
   TRIGGER_ANCHOR = ''
   TRIGGER_PREFIX = ''
   TRIGGERS = ['cron']
+  HELP = ':corn:'
 
   def handle_message(self, event, query):
     self.client.api_call(
