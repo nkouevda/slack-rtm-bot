@@ -36,11 +36,10 @@ class MessageHandler(Handler):
 
   def __init__(self, *args, **kwargs):
     super(MessageHandler, self).__init__(*args, **kwargs)
-    pattern = r'%s(?:%s)' % (self.TRIGGER_PREFIX or '', '|'.join(self.TRIGGERS))
-    if self.TRIGGER_ANCHOR == '^':
-      pattern = r'^%s(?!\S)' % pattern
-    elif self.TRIGGER_ANCHOR == '$':
-      pattern = r'(?<!\S)%s$' % pattern
+    pattern = '%s%s%s' % (
+        r'^' if '^' in (self.TRIGGER_ANCHOR or '') else r'(?<!\S)',
+        r'%s(?:%s)' % (self.TRIGGER_PREFIX or '', '|'.join(self.TRIGGERS)),
+        r'$' if '$' in (self.TRIGGER_ANCHOR or '') else r'(?!\S)')
     self.TRIGGER_RE = re.compile(pattern, flags=re.IGNORECASE)
 
   def handle(self, event):
