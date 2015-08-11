@@ -41,12 +41,12 @@ class MessageHandler(Handler):
 
   def handle(self, event):
     if event['type'] == 'message' and 'subtype' not in event:
-      match = self.TRIGGER_RE.search(event['text'])
-      if match:
-        query = self.TRIGGER_RE.sub('', event['text'], count=1).strip()
-        return self.handle_message(event, query)
+      triggers = self.TRIGGER_RE.findall(event['text'])
+      if triggers:
+        query = self.TRIGGER_RE.sub('', event['text']).strip()
+        return self.handle_message(event, triggers, query)
 
-  def handle_message(self, event, query):
+  def handle_message(self, event, triggers, query):
     raise NotImplementedError
 
 def init_handlers(client):

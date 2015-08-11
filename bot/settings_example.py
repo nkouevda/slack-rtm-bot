@@ -10,3 +10,6 @@ READ_INTERVAL_SECONDS = 1.0
 
 # OwnerHandler
 CHANNEL_OWNERS = {}
+
+# ReactionHandler
+EMOJI_REACTIONS = {}

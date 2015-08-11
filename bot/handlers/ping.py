@@ -5,5 +5,5 @@ class PingHandler(MessageHandler):
   TRIGGERS = ['ping']
   HELP = 'pong'
 
-  def handle_message(self, event, query):
+  def handle_message(self, event, triggers, query):
     return 'pong'

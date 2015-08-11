@@ -9,7 +9,7 @@ class DiceHandler(MessageHandler):
   TRIGGERS = ['dice', 'roll']
   HELP = 'roll the given number of dice; default 1'
 
-  def handle_message(self, event, query):
+  def handle_message(self, event, triggers, query):
     times = parse_int(query, default=1)
     dice_gen = (random.randrange(1, 7) for _ in xrange(times))
     if times > 10:

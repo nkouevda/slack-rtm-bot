@@ -10,7 +10,7 @@ class OwnerHandler(MessageHandler):
 
   _OWNERS = None
 
-  def handle_message(self, event, query):
+  def handle_message(self, event, triggers, query):
     if self._OWNERS is None:
       self._init_owners()
 

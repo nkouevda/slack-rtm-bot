@@ -7,7 +7,7 @@ class EightBallHandler(MessageHandler):
   TRIGGERS = ['8ball', 'eight_ball']
   HELP = 'random fortune'
 
-  def handle_message(self, event, query):
+  def handle_message(self, event, triggers, query):
     return random.choice((
         'It is certain',
         'It is decidedly so',

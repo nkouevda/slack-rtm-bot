@@ -11,7 +11,7 @@ class XkcdHandler(MessageHandler):
   TRIGGERS = ['xkcd']
   HELP = 'link to the given xkcd comic; default current'
 
-  def handle_message(self, event, query):
+  def handle_message(self, event, triggers, query):
     number = parse_int(query)
     if not number:
       response = requests.get(_XKCD_API_CURRENT_URL)
