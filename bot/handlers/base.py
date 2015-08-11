@@ -4,8 +4,6 @@ import logging
 import os
 import re
 
-import settings
-
 _handler_classes = set()
 handlers = set()
 
@@ -21,7 +19,6 @@ class Handler(object):
   __metaclass__ = HandlerRegistry
 
   def __init__(self, client):
-    self.settings = settings
     self.client = client
 
   def handle(self, event):

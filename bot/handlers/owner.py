@@ -1,6 +1,7 @@
 from handlers.base import MessageHandler
+import settings
 
-class OwnersHandler(MessageHandler):
+class OwnerHandler(MessageHandler):
 
   TRIGGER_ANCHOR = ''
   TRIGGER_PREFIX = '@'
@@ -18,4 +19,4 @@ class OwnersHandler(MessageHandler):
   def _init_owners(self):
     self._OWNERS = {
         channel: ' '.join('@%s' % owner for owner in sorted(owners))
-        for channel, owners in self.settings.CHANNEL_OWNERS.items()}
+        for channel, owners in settings.CHANNEL_OWNERS.items()}
