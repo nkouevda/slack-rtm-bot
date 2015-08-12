@@ -10,6 +10,7 @@ class ReactionHandler(MessageHandler):
 
   def handle_message(self, event, triggers, query):
     for trigger in triggers:
+      trigger = trigger.lower()
       if trigger in settings.EMOJI_REACTIONS:
         self.client.api_call(
             'reactions.add',
