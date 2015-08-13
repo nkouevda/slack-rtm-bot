@@ -5,7 +5,7 @@ class ReactionHandler(MessageHandler):
 
   TRIGGER_ANCHOR = ''
   TRIGGER_PREFIX = ''
-  TRIGGERS = sorted(settings.EMOJI_REACTIONS.iterkeys())
+  TRIGGERS = sorted(settings.EMOJI_REACTIONS.keys())
   HELP = 'add emoji reactions'
 
   def handle_message(self, event, triggers, query):
