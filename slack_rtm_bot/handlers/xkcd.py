@@ -1,7 +1,7 @@
 import requests
 
-from handlers.base import MessageHandler
-from util import parse_int
+from .base import MessageHandler
+from ..util import parse_int
 
 _XKCD_API_CURRENT_URL = 'http://xkcd.com/info.0.json'
 _XKCD_URL_TEMPLATE = 'http://xkcd.com/%s/'

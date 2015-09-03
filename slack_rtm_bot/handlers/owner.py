@@ -1,5 +1,5 @@
-from handlers.base import MessageHandler
-import settings
+from .base import MessageHandler
+from .. import settings
 
 class OwnerHandler(MessageHandler):
 

@@ -3,8 +3,8 @@ import time
 
 from slackclient import SlackClient
 
-from handlers.base import handlers, init_handlers
-import settings
+from . import settings
+from .handlers.base import handlers, init_handlers
 
 def get_responses(event):
   for handler in handlers:

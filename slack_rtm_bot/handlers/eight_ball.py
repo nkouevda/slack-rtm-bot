@@ -1,6 +1,6 @@
 import random
 
-from handlers.base import MessageHandler
+from .base import MessageHandler
 
 class EightBallHandler(MessageHandler):
 

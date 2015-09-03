@@ -4,17 +4,17 @@
 
 ## Setup
 
-    git clone https://github.com/nkouevda/slack-rtm-bot.git
-    cd slack-rtm-bot
-    virtualenv ~/.virtualenvs/slack-rtm-bot
-    source ~/.virtualenvs/slack-rtm-bot/bin/activate
-    pip install -r requirements.txt
-    cp bot/settings{_example,}.py
-    # Add API token to bot/settings.py
+    pip install slack-rtm-bot
 
 ## Usage
 
-    python bot/bot.py
+    SLACK_RTM_BOT_API_TOKEN="foobar" slack-rtm-bot
+
+To use a different settings file, copy
+[`settings_local.py`](slack_rtm_bot/settings_local.py) to some
+`/path/to/settings_local.py`, and set `SLACK_RTM_BOT_SETTINGS_FILE`:
+
+    SLACK_RTM_BOT_SETTINGS_FILE="/path/to/settings_local.py" slack-rtm-bot
 
 ## License
 

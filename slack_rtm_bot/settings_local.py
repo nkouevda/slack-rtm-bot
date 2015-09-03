@@ -1,6 +1,7 @@
 import logging
+import os
 
-API_TOKEN = None
+API_TOKEN = os.environ.get('SLACK_RTM_BOT_API_TOKEN')
 
 LOG_FILE = None
 LOG_FORMAT = '%(asctime)s: %(levelname)s: %(message)s'

@@ -1,6 +1,6 @@
 import re
 
-from handlers.base import handlers, MessageHandler
+from .base import handlers, MessageHandler
 
 class HelpHandler(MessageHandler):
 

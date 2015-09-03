@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from handlers.base import MessageHandler
+from .base import MessageHandler
 
 class TableFlipHandler(MessageHandler):
 

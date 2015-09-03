@@ -1,4 +1,4 @@
-from handlers.base import MessageHandler
+from .base import MessageHandler
 
 class Rot13Handler(MessageHandler):
 

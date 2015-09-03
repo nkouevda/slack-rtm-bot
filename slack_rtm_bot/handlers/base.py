@@ -54,7 +54,7 @@ def init_handlers(client):
   for filename in fnmatch.filter(os.listdir(handlers_dir), '[!_]*.py'):
     module = filename[:-3]
     try:
-      importlib.import_module('handlers.%s' % module)
+      importlib.import_module('..%s' % module, package=__name__)
       logging.info('loaded handler module: %s' % module)
     except Exception:
       logging.exception('failed to load handler module: %s' % module)

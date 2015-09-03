@@ -1,8 +1,8 @@
 from collections import Counter
 import random
 
-from handlers.base import MessageHandler
-from util import parse_int
+from .base import MessageHandler
+from ..util import parse_int
 
 class DiceHandler(MessageHandler):
 
