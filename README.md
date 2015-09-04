@@ -2,7 +2,7 @@
 
 [Slack](https://slack.com/) [RTM](https://api.slack.com/rtm) bot.
 
-## Setup
+## Installation
 
     pip install slack-rtm-bot
 
@@ -12,9 +12,9 @@
 
 To use a different settings file, copy
 [`settings_local.py`](slack_rtm_bot/settings_local.py) to some
-`/path/to/settings_local.py`, and set `SLACK_RTM_BOT_SETTINGS_FILE`:
+`/path/to/settings.py`, and set `SLACK_RTM_BOT_SETTINGS_FILE`:
 
-    SLACK_RTM_BOT_SETTINGS_FILE="/path/to/settings_local.py" slack-rtm-bot
+    SLACK_RTM_BOT_SETTINGS_FILE="/path/to/settings.py" slack-rtm-bot
 
 ## License
 
