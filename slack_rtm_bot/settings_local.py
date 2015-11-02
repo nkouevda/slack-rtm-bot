@@ -14,3 +14,4 @@ CHANNEL_OWNERS = {}
 
 # ReactionHandler
 EMOJI_REACTIONS = {}
+IMAGE_REACTIONS = {}
