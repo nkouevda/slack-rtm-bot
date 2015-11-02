@@ -5,7 +5,7 @@ with open('README.md', 'r') as f:
 
 setup(
     name='slack-rtm-bot',
-    version='1.0.1',
+    version='1.0.2',
     description='Slack RTM bot',
     long_description=readme,
     url='https://github.com/nkouevda/slack-rtm-bot',
