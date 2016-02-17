@@ -11,7 +11,7 @@ def get_responses(event):
     try:
       yield handler.handle(event)
     except Exception:
-      logging.exception('handler failed to handle event: %s' % handler)
+      logging.exception('handler failed to handle event: %s', handler)
 
 def run_bot(client):
   while True:
@@ -19,15 +19,15 @@ def run_bot(client):
     for event in client.rtm_read():
       if 'ok' in event:
         if event['ok']:
-          logging.debug('response confirmation: %s' % event['reply_to'])
+          logging.debug('response confirmation: %s', event['reply_to'])
         else:
-          logging.error('bad response confirmation: %s' % event)
+          logging.error('bad response confirmation: %s', event)
         continue
 
-      logging.info('event: %s' % event['type'])
+      logging.info('event: %s', event['type'])
       response = '\n'.join(filter(None, get_responses(event)))
       if response:
-        logging.info('response: %s' % response)
+        logging.info('response: %s', response)
         client.rtm_send_message(event['channel'], response)
 
     time.sleep(settings.READ_INTERVAL_SECONDS)
