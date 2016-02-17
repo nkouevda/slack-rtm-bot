@@ -1,4 +1,13 @@
+import importlib
 import os
+import sys
 
-execfile(os.environ.get('SLACK_RTM_BOT_SETTINGS_FILE', os.path.join(
-    os.path.dirname(__file__), 'settings_local.py')))
+if 'SLACK_RTM_BOT_SETTINGS_FILE' not in os.environ:
+  from . import settings_local as settings
+else:
+  dirname, basename = os.path.split(os.environ['SLACK_RTM_BOT_SETTINGS_FILE'])
+  if dirname and dirname not in sys.path:
+    sys.path.append(dirname)
+  settings = importlib.import_module(os.path.splitext(basename)[0])
+
+globals().update(settings.__dict__)
