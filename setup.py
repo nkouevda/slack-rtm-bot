@@ -1,11 +1,16 @@
 from setuptools import setup
 
+version = {}
+
+with open('slack_rtm_bot/__version__.py', 'r') as f:
+  exec(f.read(), version)
+
 with open('README.md', 'r') as f:
   readme = f.read()
 
 setup(
     name='slack-rtm-bot',
-    version='1.0.3',
+    version=version['__version__'],
     description='Slack RTM bot',
     long_description=readme,
     url='https://github.com/nkouevda/slack-rtm-bot',
