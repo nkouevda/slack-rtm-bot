@@ -13,6 +13,7 @@ setup(
     version=version['__version__'],
     description='Slack RTM bot',
     long_description=readme,
+    long_description_content_type='text/markdown',
     url='https://github.com/nkouevda/slack-rtm-bot',
     author='Nikita Kouevda',
     author_email='nkouevda@gmail.com',
