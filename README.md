@@ -18,4 +18,4 @@ To use a different settings file, copy
 
 ## License
 
-Licensed under the [MIT License](http://www.opensource.org/licenses/MIT).
+[MIT License](LICENSE.txt)
