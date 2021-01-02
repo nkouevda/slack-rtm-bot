@@ -30,7 +30,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'slack-rtm-bot=slack_rtm_bot.bot:main',
+            'slack-rtm-bot=slack_rtm_bot.__main__:main',
         ],
     },
 )

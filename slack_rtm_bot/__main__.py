@@ -1,4 +1,5 @@
 import logging
+import sys
 import time
 
 from slackclient import SlackClient
@@ -6,12 +7,14 @@ from slackclient import SlackClient
 from . import settings
 from .handlers.base import handlers, init_handlers
 
+
 def get_responses(event):
   for handler in handlers:
     try:
       yield handler.handle(event)
     except Exception:
       logging.exception('handler failed to handle event: %s', handler)
+
 
 def run_bot(client):
   while True:
@@ -32,6 +35,7 @@ def run_bot(client):
 
     time.sleep(settings.READ_INTERVAL_SECONDS)
 
+
 def main():
   logging.basicConfig(filename=settings.LOG_FILE,
                       format=settings.LOG_FORMAT,
@@ -41,10 +45,13 @@ def main():
   logging.info('rtm_connect')
   if not client.rtm_connect():
     logging.critical('failed to connect')
-    return
+    return 1
 
   init_handlers(client)
   run_bot(client)
 
+  return 0
+
+
 if __name__ == '__main__':
-  main()
+  sys.exit(main())
