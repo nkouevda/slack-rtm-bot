@@ -24,7 +24,6 @@ setup(
     ],
     install_requires=[
         'requests',
-        'six',
         'slackclient',
         'websocket-client',
     ],
