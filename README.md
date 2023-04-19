@@ -6,6 +6,10 @@
 
     pip install slack-rtm-bot
 
+Or:
+
+    brew install nkouevda/nkouevda/slack-rtm-bot
+
 ## Usage
 
     SLACK_RTM_BOT_API_TOKEN="foobar" slack-rtm-bot
